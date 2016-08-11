@@ -10,7 +10,7 @@ const autoprefixer = require('autoprefixer');
 
 module.exports = function defineLessConnectMiddleware(root, opt) {
     if (typeof root != 'string') throw new TypeError('[less-connect-middleware] ' +
-        'expected `root` arguments to be of type "string", got ', JSON.stringify(root));
+        'expected `root` arguments to be of type "string", got ' + JSON.stringify(root));
 
     const options = extend(true, {
         less: {
