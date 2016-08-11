@@ -19,22 +19,7 @@ describe('less-connect-middleware', function() {
     }
 
     function fetch(path) {
-        return new Promise(function(resolve) {
-            http.get('http://localhost:' + port + '/' + path, function(res) {
-                if (res.statusCode != 200) {
-                    resolve(res);
-                } else {
-                    let body = '';
-                    res.on('data', function(chunk) {
-                        body += chunk;
-                    });
-                    res.on('end', function() {
-                        res.body = body;
-                        resolve(res);
-                    });
-                }
-            });
-        });
+        return require('./fetch')('http://localhost:' + port + '/' + path);
     }
 
     beforeEach(function(done) {
@@ -79,7 +64,7 @@ describe('less-connect-middleware', function() {
             res.statusCode = 404;
             res.end();
         });
-        return fetch('less/404.less').then(function(res) {
+        return fetch('less/404.less').catch(function(res) {
             assert.equal(404, res.statusCode);
         });
     });
