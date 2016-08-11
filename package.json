@@ -1,13 +1,46 @@
 {
   "name": "less-connect-middleware",
   "version": "0.0.1",
-  "description": "serve less file directly to tha browser",
+  "description": "serve less files directly to tha browser",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "publishConfig": {
+    "registry": "http://artifactory/api/npm/npm-local"
   },
   "repository": {
     "type": "git",
     "url": "http://github.body.prod/kevin-gay/less-connect-middleware.git"
+  },
+  "license": {
+    "type": "MIT",
+    "url": "https://opensource.org/licenses/MIT"
+  },
+  "engines": {
+    "node": "~5.12.0"
+  },
+  "scripts": {
+    "test": "mocha test",
+    "watch": "npm-watch"
+  },
+  "watch": {
+    "test": {
+      "quiet": true,
+      "extensions": "js,css,less",
+      "patterns": [
+        "test/",
+        "index.js"
+      ]
+    }
+  },
+  "dependencies": {
+    "autoprefixer": "^6.4.0",
+    "less": "^2.7.1",
+    "node.extend": "^1.1.5",
+    "postcss": "^5.1.2"
+  },
+  "devDependencies": {
+    "connect": "^3.4.1",
+    "mocha": "^3.0.2",
+    "npm-watch": "^0.1.6",
+    "portfinder": "^1.0.6"
   }
 }
