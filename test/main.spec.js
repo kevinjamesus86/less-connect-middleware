@@ -9,6 +9,7 @@ const portfinder = require('portfinder');
 const middleware = require('../index');
 
 describe('less-connect-middleware', function() {
+    let opts = { root: __dirname };
     let app;
     let server;
     let port;
@@ -45,21 +46,15 @@ describe('less-connect-middleware', function() {
         }
     });
 
-    it('throws when `root` is not a string', function() {
-        assert.throws(function() {
-            app.use(middleware());
-        });
-    });
-
     it('serves files relative to the root path', function() {
-        app.use(middleware(__dirname));
+        app.use(middleware(opts));
         return fetch('less/200.less').then(function(res) {
             assert.equal(200, res.statusCode);
         });
     });
 
     it('calls `next()` when file is not found', function() {
-        app.use(middleware(__dirname));
+        app.use(middleware(opts));
         app.use(function(req, res) {
             res.statusCode = 404;
             res.end();
@@ -69,10 +64,16 @@ describe('less-connect-middleware', function() {
         });
     });
 
+    it('resolves @imports', function() {
+        app.use(middleware(opts));
+        return fetch('less/imports.less').then(function(res) {
+            assertEqualsFile(res.body, 'css/imports.css');
+        });
+    });
+
     it('adds vendor prefixes', function() {
-        app.use(middleware(__dirname));
+        app.use(middleware(opts));
         return fetch('less/prefix.less').then(function(res) {
-            assert.equal(200, res.statusCode);
             assertEqualsFile(res.body, 'css/prefix.css');
         });
     });

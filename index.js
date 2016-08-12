@@ -1,72 +1,66 @@
 'use strict';
 
-const fs = require('fs');
 const url = require('url');
 const path = require('path');
-const extend = require('node.extend');
+const co = require('co');
+const thunk = require('thunkify');
+const clone = require('lodash.clonedeep');
+const defaultsdeep = require('lodash.defaultsdeep');
 const less = require('less');
 const postcss = require('postcss');
 const autoprefixer = require('autoprefixer');
+const read = thunk(require('fs').readFile);
 
-module.exports = function defineLessConnectMiddleware(root, opt) {
-    if (typeof root != 'string') throw new TypeError('[less-connect-middleware] ' +
-        'expected `root` arguments to be of type "string", got ' + JSON.stringify(root));
+const defaults = {
+    root: process.cwd(),
+    less: {
+        paths: []
+    },
+    autoprefixer: {
+        browsers: [
+            'ie 8-11',
+            'android >= 4',
+            'last 2 versions'
+        ]
+    }
+};
 
-    const options = extend(true, {
-        less: {
-            paths: [],
-            compress: false,
-            yuicompress: false,
-            pre(src) {
-                return src
-            },
-            post(src) {
-                return src
-            }
-        },
-        autoprefixer: {
-            browsers: [
-                'last 1 version',
-                'ie 8',
-                'ie 9',
-                'ie 10',
-                'ie 11',
-                'Android >= 4'
-            ]
-        }
-    }, opt);
-
-    const prefixer = postcss([autoprefixer(options.autoprefixer)]);
+module.exports = function defineLessConnectMiddleware(options) {
+    const opts = defaultsdeep({}, clone(options), defaults);
+    const prefixer = postcss([autoprefixer(opts.autoprefixer)]);
 
     return function lessConnectMiddleware(req, res, next) {
         const pathname = url.parse(req.url).pathname;
-        const lessPath = path.join(root, pathname);
+        const file = path.join(opts.root, pathname);
 
-        if (!(req.method.toUpperCase() == 'GET' && pathname.endsWith('.less'))) {
+        // Bail if this isn't a get request for a less file
+        if (!(req.method == 'GET' && file.endsWith('.less'))) {
             return next();
         }
 
-        function onError(err) {
+        co(handleRequest).catch(function(err) {
+            // ENOENT is 404 so we ignore the error
             next(err.code == 'ENOENT' ? null : err);
+        });
+
+        function* handleRequest() {
+            const css = yield render(file, opts.less);
+            res.setHeader('Content-Type', 'text/css; charset=utf-8');
+            res.setHeader('Content-Length', css.length);
+            res.end(css);
         }
 
-        fs.readFile(lessPath, 'utf8', function(err, src) {
-            if (err) return onError(err);
-            const lessSrc = options.less.pre(src);
+        function* render(file, opts) {
+            opts = clone(opts);
+            opts.paths.push(path.dirname(file));
+            const src = yield read(file, 'utf8');
+            const ret = yield less.render(src, opts);
+            return yield prefix(ret.css);
+        }
 
-            less.render(lessSrc, options.less, function(err, result) {
-                if (err) return onError(err);
-                const css = options.less.post(result.css);
-
-                prefixer
-                    .process(css)
-                    .catch(onError)
-                    .then(function(result) {
-                        res.setHeader('Content-Type', 'text/css');
-                        res.setHeader('Content-Length', result.css.length);
-                        res.end(result.css);
-                    });
-            });
-        });
+        function* prefix(css) {
+            const ret = yield prefixer.process(css);
+            return ret.css;
+        }
     };
 };
