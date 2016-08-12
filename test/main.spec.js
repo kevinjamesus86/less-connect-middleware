@@ -45,12 +45,6 @@ describe('less-connect-middleware', function() {
         }
     });
 
-    it('throws when `root` is not a string', function() {
-        assert.throws(function() {
-            app.use(middleware());
-        });
-    });
-
     it('serves files relative to the root path', function() {
         app.use(middleware(__dirname));
         return fetch('less/200.less').then(function(res) {

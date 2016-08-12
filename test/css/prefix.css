@@ -1,5 +1,4 @@
 body {
-  -webkit-transform: scale(2);
-      -ms-transform: scale(2);
-          transform: scale(2);
+  -webkit-transform: translateY(-1px);
+          transform: translateY(-1px);
 }

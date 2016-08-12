@@ -1,7 +1,7 @@
 {
   "name": "less-connect-middleware",
   "version": "0.0.1",
-  "description": "serve less files directly to tha browser",
+  "description": "Serve Less files directly to tha browser",
   "main": "index.js",
   "publishConfig": {
     "registry": "http://artifactory/api/npm/npm-local"
@@ -23,9 +23,12 @@
   },
   "dependencies": {
     "autoprefixer": "^6.4.0",
+    "co": "^4.6.0",
     "less": "^2.7.1",
-    "node.extend": "^1.1.5",
-    "postcss": "^5.1.2"
+    "lodash.clonedeep": "^4.4.1",
+    "lodash.defaultsdeep": "^4.5.1",
+    "postcss": "^5.1.2",
+    "thunkify": "^2.1.2"
   },
   "devDependencies": {
     "connect": "^3.4.1",
