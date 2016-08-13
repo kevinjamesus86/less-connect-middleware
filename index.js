@@ -63,7 +63,7 @@ module.exports = function defineLessConnectMiddleware() {
             // statements don't cause the less compiler to flip out
             paths.unshift(root, path.dirname(file));
 
-            let src = yield read(file);
+            let src = yield read(file, 'utf-8');
 
             // Add references to less files which may normally
             // be compiled as part of a build task. Perhaps they
