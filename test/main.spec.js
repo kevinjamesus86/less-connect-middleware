@@ -55,10 +55,6 @@ describe('less-connect-middleware', function() {
 
     it('calls `next()` when file is not found', function() {
         app.use(middleware(opts));
-        app.use(function(req, res) {
-            res.statusCode = 404;
-            res.end();
-        });
         return fetch('less/404.less').catch(function(res) {
             assert.equal(404, res.statusCode);
         });
