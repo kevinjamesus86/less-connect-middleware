@@ -18,7 +18,7 @@ const defaults = {
     },
     autoprefixer: {
         browsers: [
-            'ie 8-11',
+            'ie 9-11',
             'android >= 4',
             'last 2 versions'
         ]

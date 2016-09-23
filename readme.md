@@ -25,7 +25,7 @@ app.use(
             // Browser queries for vendor prefixing CSS
             // https://github.com/ai/browserslist
             browsers: [
-                'ie 8-11',
+                'ie 9-11',
                 'android >= 4',
                 'last 2 versions'
             ]
