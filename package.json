@@ -19,17 +19,17 @@
     "watch": "mocha -b -w --check-leaks --watch-extensions less,css test/**/*.spec.js"
   },
   "dependencies": {
-    "autoprefixer": "^6.5.0",
+    "autoprefixer": "^6.5.1",
     "co": "^4.6.0",
     "less": "^2.7.1",
     "lodash.clonedeep": "^4.5.0",
     "lodash.defaultsdeep": "^4.6.0",
-    "postcss": "^5.2.4",
+    "postcss": "^5.2.5",
     "thunkify": "^2.1.2"
   },
   "devDependencies": {
     "connect": "^3.5.0",
-    "mocha": "^3.1.0",
-    "portfinder": "^1.0.7"
+    "mocha": "^3.1.2",
+    "portfinder": "^1.0.9"
   }
 }
