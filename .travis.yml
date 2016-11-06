@@ -6,3 +6,11 @@ branches:
   - master
 before_install:
   - npm config set progress false
+deploy:
+  provider: npm
+  email: kevinjamesus86@gmail.com
+  api_key:
+    secure: YtQ5TUdVMU8E55TCgQdtJapNHhvFyjqVfNxj5MYJRV4BNzc2C5TXvXrvDPopg43KuNAk8Lcze7T8EGFu75UlIm91iwNx59qQa+6Db3z5ANo5Tay3IXv5D/l6jE9Ywp2h8PIjkloOCAd1Wrk27m+pe/UDeNDtlwsl1Fn2hEWlVT7KadcjhRwMnUsNKNO98VCrHw5g616iO3zuVzicWa7Im4fTFyVXsDZZC5n8otKjUTrMoDs3jc0R/7f6uZg11wOGobrjrmZyIoNv10/1+mDqrg5z4CNFLjlQaFsnmrYF52XIb6LdTJ2OKEMvw5uI7ChsNvRe/fHxLnJyAbwBEDwahh3hgBhFZ8d9FIZSUJ1u3WkIAwCxiQzBvUJNc2Oqsp/Oa0zXag80/bfJxgphDSRkNOHHBXkq6Ep26cIsvrTu5cOWxwbXW6AzF3Z3oUfBURY9w96cewllOgX3J0fx/4kZGBR7t//I6XbBwLlmhKn/fNxBF88XfSKbNg+4uyiImZY6OoAKG9j5k9OckPVANWdkz5uCCLIUimik1KUlXmqVJhHPCbMmhR86kibBhNZe/iT686D9svCgFglwAOWvKpEUT8u7lZ+S56Rz67n/C9k9P7YH7CO4vOL02aPk4AXXeL1mnBaae1H1+Be1YUybJWYoiLPhaF9l+sWapkSrdKVjPIw=
+  on:
+    tags: true
+    repo: kevinjamesus86/less-connect-middleware
