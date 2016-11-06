@@ -1,6 +1,6 @@
 {
   "name": "less-connect-middleware",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Serve Less files directly to tha browser",
   "main": "index.js",
   "publishConfig": {
