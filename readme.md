@@ -1,5 +1,7 @@
 **less connect middleware**
 
+[![Build Status](https://travis-ci.org/kevinjamesus86/less-connect-middleware.svg?branch=master)](https://travis-ci.org/kevinjamesus86/less-connect-middleware)
+
 
 ```js
 'use strict';
