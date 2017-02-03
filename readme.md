@@ -28,8 +28,7 @@ app.use(
             // https://github.com/ai/browserslist
             browsers: [
                 'ie 9-11',
-                'android >= 4',
-                'last 2 versions'
+                'defaults'
             ]
         }
     })
