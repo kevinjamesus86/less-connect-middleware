@@ -19,7 +19,7 @@
     "watch": "mocha -b -w --check-leaks --watch-extensions less,css test/**/*.spec.js"
   },
   "dependencies": {
-    "autoprefixer": "^6.6.1",
+    "autoprefixer": "^7.1.1",
     "co": "^4.6.0",
     "less": "^2.7.2",
     "lodash.clonedeep": "^4.5.0",
